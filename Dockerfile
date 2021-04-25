@@ -32,3 +32,7 @@ ENV CROSS_COMPILE x86_64-linux-uclibc-
 WORKDIR /root/linux-5.11.16
 
 RUN make x86_64_defconfig
+
+ARG MAKEFLAGS
+
+RUN make
