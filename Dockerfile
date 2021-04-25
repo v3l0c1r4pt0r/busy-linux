@@ -22,3 +22,9 @@ WORKDIR /root
 RUN apt-get install -y xz-utils
 
 RUN wget 'https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.11.16.tar.xz' && tar -xvf linux-5.11.16.tar.xz && rm linux-5.11.16.tar.xz
+
+ENV CROSS_COMPILE x86_64-linux-uclibc-
+
+WORKDIR /root/linux-5.11.16
+
+RUN make x86_64_defconfig
