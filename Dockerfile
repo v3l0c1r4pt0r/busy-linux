@@ -19,7 +19,11 @@ FROM dev AS kernel
 
 WORKDIR /root
 
-RUN apt-get install -y xz-utils
+RUN apt-get install -y \
+  # for unpacking kernel tarball \
+  xz-utils \
+  # for compiling \
+  flex bison libssl-dev libelf-dev bc
 
 RUN wget 'https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.11.16.tar.xz' && tar -xvf linux-5.11.16.tar.xz && rm linux-5.11.16.tar.xz
 
