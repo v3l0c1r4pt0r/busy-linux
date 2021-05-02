@@ -79,3 +79,5 @@ RUN sed -i 's/CONFIG_NSLOOKUP=y/CONFIG_NSLOOKUP=n/g' .config
 RUN sed -i 's/CONFIG_MKTEMP=y/CONFIG_MKTEMP=n/g' .config
 
 RUN make
+
+RUN cp busybox /root/
