@@ -81,3 +81,8 @@ RUN sed -i 's/CONFIG_MKTEMP=y/CONFIG_MKTEMP=n/g' .config
 RUN make
 
 RUN cp busybox /root/
+
+# Initial ramdisk
+FROM scratch AS initramfs
+
+COPY --from=busybox /root/busybox /busybox
