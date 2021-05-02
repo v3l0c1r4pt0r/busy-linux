@@ -54,6 +54,9 @@ ENV CROSS_COMPILE x86_64-linux-uclibc-
 
 RUN make defconfig
 
+# switch to static binary
+RUN sed -i 's/# CONFIG_STATIC is not set/CONFIG_STATIC=y/g' .config
+
 # reconfigurations comparing to defconfig
 # avoid compilation errors due to missing features
 
