@@ -92,3 +92,6 @@ COPY --from=busybox /root/busybox /bin/busybox
 
 # install symlinks to all tools
 RUN ["/bin/busybox", "--install", "-s", "/bin"]
+
+# create basic directory structure
+RUN mkdir -p bin dev etc lib proc root sys
