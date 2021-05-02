@@ -51,3 +51,7 @@ RUN wget 'https://www.busybox.net/downloads/busybox-1.33.0.tar.bz2' && tar -xvf 
 WORKDIR /root/busybox-1.33.0
 
 ENV CROSS_COMPILE x86_64-linux-uclibc-
+
+RUN make defconfig
+
+RUN make
