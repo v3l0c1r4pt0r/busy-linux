@@ -54,4 +54,22 @@ ENV CROSS_COMPILE x86_64-linux-uclibc-
 
 RUN make defconfig
 
+# reconfigurations comparing to defconfig
+# avoid compilation errors due to missing features
+
+# requires utmpx.h
+RUN sed -i 's/CONFIG_FEATURE_UTMP=y/CONFIG_FEATURE_UTMP=n/g' .config
+
+# requires netinet/icmp6.h
+RUN sed -i 's/CONFIG_PING6=y/CONFIG_PING6=n/g' .config
+
+# fails on missing LONG_BIT define
+RUN sed -i 's/CONFIG_SSL_CLIENT=y/CONFIG_SSL_CLIENT=n/g' .config
+RUN sed -i 's/CONFIG_FEATURE_WGET_HTTPS=y/CONFIG_FEATURE_WGET_HTTPS=n/g' .config
+
+# requires netinet/ip6.h
+RUN sed -i 's/CONFIG_TRACEROUTE6=y/CONFIG_TRACEROUTE6=n/g' .config
+RUN sed -i 's/CONFIG_TRACEROUTE=y/CONFIG_TRACEROUTE=n/g' .config
+RUN sed -i 's/CONFIG_UDHCPC6=y/CONFIG_UDHCPC6=n/g' .config
+
 RUN make
