@@ -94,4 +94,10 @@ COPY --from=busybox /root/busybox /bin/busybox
 RUN ["/bin/busybox", "--install", "-s", "/bin"]
 
 # create basic directory structure
-RUN mkdir -p bin dev etc lib proc root sys
+RUN mkdir -p bin realdev etc lib proc root sys
+
+# create device file for teletypes
+RUN mknod /realdev/tty1 c 4 1
+RUN mknod /realdev/tty2 c 4 2
+RUN mknod /realdev/tty3 c 4 3
+RUN mknod /realdev/tty4 c 4 4
