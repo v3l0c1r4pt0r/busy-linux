@@ -107,3 +107,6 @@ RUN echo -e "proc\t /proc\t proc\t defaults\t 0 1" >/etc/fstab
 
 # create init script to trigger mounts
 RUN mkdir -p /etc/init.d && echo -e "#!/bin/sh\nmount -a" > /etc/init.d/rcS
+
+# link /init, so kernel will call the right binary
+RUN ln -s /bin/busybox /init
