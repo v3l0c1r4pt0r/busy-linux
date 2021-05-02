@@ -36,3 +36,5 @@ RUN make x86_64_defconfig
 ARG MAKEFLAGS
 
 RUN make
+
+RUN cp arch/x86/boot/bzImage /root/
