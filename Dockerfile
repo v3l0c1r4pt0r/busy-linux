@@ -101,3 +101,9 @@ RUN mknod /realdev/tty1 c 4 1
 RUN mknod /realdev/tty2 c 4 2
 RUN mknod /realdev/tty3 c 4 3
 RUN mknod /realdev/tty4 c 4 4
+
+# set up automatic mounts
+RUN echo -e "proc\t /proc\t proc\t defaults\t 0 1" >/etc/fstab
+
+# create init script to trigger mounts
+RUN mkdir -p /etc/init.d && echo -e "#!/bin/sh\nmount -a" > /etc/init.d/rcS
