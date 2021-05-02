@@ -72,4 +72,10 @@ RUN sed -i 's/CONFIG_TRACEROUTE6=y/CONFIG_TRACEROUTE6=n/g' .config
 RUN sed -i 's/CONFIG_TRACEROUTE=y/CONFIG_TRACEROUTE=n/g' .config
 RUN sed -i 's/CONFIG_UDHCPC6=y/CONFIG_UDHCPC6=n/g' .config
 
+# requires __ns_* functions that are missing, failing linking
+RUN sed -i 's/CONFIG_NSLOOKUP=y/CONFIG_NSLOOKUP=n/g' .config
+
+# requires mktemp()
+RUN sed -i 's/CONFIG_MKTEMP=y/CONFIG_MKTEMP=n/g' .config
+
 RUN make
