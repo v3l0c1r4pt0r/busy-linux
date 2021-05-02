@@ -14,10 +14,10 @@ RUN wget 'https://github.com/v3l0c1r4pt0r/cc-factory/releases/download/x86_64-gc
 
 ENV PATH "${PATH}:/opt/x86_64-linux-uclibc/bin"
 
+WORKDIR /root
+
 # KERNEL STAGE
 FROM dev AS kernel
-
-WORKDIR /root
 
 RUN apt-get install -y \
   # for unpacking kernel tarball \
