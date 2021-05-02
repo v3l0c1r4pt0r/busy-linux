@@ -38,3 +38,12 @@ ARG MAKEFLAGS
 RUN make
 
 RUN cp arch/x86/boot/bzImage /root/
+
+# Busybox
+FROM dev AS busybox
+
+RUN wget 'https://www.busybox.net/downloads/busybox-1.33.0.tar.bz2' && tar -xvf busybox-1.33.0.tar.bz2 && rm busybox-1.33.0.tar.bz2
+
+WORKDIR /root/busybox-1.33.0
+
+ENV CROSS_COMPILE x86_64-linux-uclibc-
