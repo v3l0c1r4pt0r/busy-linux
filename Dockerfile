@@ -88,4 +88,7 @@ RUN cp busybox /root/
 # Initial ramdisk
 FROM scratch AS initramfs
 
-COPY --from=busybox /root/busybox /busybox
+COPY --from=busybox /root/busybox /bin/busybox
+
+# install symlinks to all tools
+RUN ["/bin/busybox", "--install", "-s", "/bin"]
