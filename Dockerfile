@@ -1,4 +1,8 @@
-# BASE IMAGE FOR ALL STAGES
+###############################
+#                             #
+#  BASE IMAGE FOR ALL STAGES  #
+#                             #
+###############################
 FROM ubuntu:latest AS dev
 
 RUN apt-get update -yq && apt-get upgrade -yq && \
@@ -16,7 +20,11 @@ ENV PATH "${PATH}:/opt/x86_64-linux-uclibc/bin"
 
 WORKDIR /root
 
-# KERNEL STAGE
+##################
+#                #
+#  KERNEL STAGE  #
+#                #
+##################
 FROM dev AS kernel
 
 RUN apt-get install -y \
@@ -39,7 +47,11 @@ RUN make
 
 RUN cp arch/x86/boot/bzImage /root/
 
-# Busybox
+###################
+#                 #
+#  BUSYBOX STAGE  #
+#                 #
+###################
 FROM dev AS busybox
 
 RUN apt-get install -y \
@@ -85,7 +97,11 @@ RUN make
 
 RUN cp busybox /root/
 
-# Initial ramdisk
+#####################
+#                   #
+#  INITRAMFS STAGE  #
+#                   #
+#####################
 FROM scratch AS initramfs
 
 COPY --from=busybox /root/busybox /bin/busybox
@@ -111,7 +127,11 @@ RUN mkdir -p /etc/init.d && echo -e "#!/bin/sh\nmount -a" > /etc/init.d/rcS
 # link /init, so kernel will call the right binary
 RUN ln -s /bin/busybox /init
 
-# Systemd boot
+########################
+#                      #
+#  SYSTEMD BOOT STAGE  #
+#                      #
+########################
 FROM dev AS systemd-boot
 
 RUN apt-get install -y cpio
