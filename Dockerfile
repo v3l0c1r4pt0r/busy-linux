@@ -110,3 +110,21 @@ RUN mkdir -p /etc/init.d && echo -e "#!/bin/sh\nmount -a" > /etc/init.d/rcS
 
 # link /init, so kernel will call the right binary
 RUN ln -s /bin/busybox /init
+
+# Systemd boot
+FROM dev AS systemd-boot
+
+RUN apt-get install -y cpio
+
+# copy whole initramfs
+COPY --from=initramfs / /root/initramfs
+
+WORKDIR /root/initramfs
+
+# fix dev name, as docker should not interrupt us in subdir
+RUN mv realdev dev
+
+# create compressed initramfs
+RUN find . | cpio -o -H newc > ../initramfs.cpio
+WORKDIR /root
+RUN gzip < initramfs.cpio > initramfs.cpio.gz
