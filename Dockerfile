@@ -190,3 +190,11 @@ RUN /bin/echo '' > kernel-command-line.txt
 
 # get systemd-boot from previous stage
 COPY --from=efistub /root/linuxx64.efi.stub /root/
+
+# combine them with EFI stub
+RUN objcopy \
+  --add-section .osrel="os-release" --change-section-vma .osrel=0x20000 \
+  --add-section .cmdline="kernel-command-line.txt" --change-section-vma .cmdline=0x30000 \
+  --add-section .linux="bzImage" --change-section-vma .linux=0x2000000 \
+  --add-section .initrd="initramfs.cpio.gz" --change-section-vma .initrd=0x3000000 \
+  "linuxx64.efi.stub" "busy-linux.efi"
