@@ -151,3 +151,11 @@ RUN mv realdev dev
 RUN find . | cpio -o -H newc > ../initramfs.cpio
 WORKDIR /root
 RUN gzip < initramfs.cpio > initramfs.cpio.gz
+
+# create os-release file
+# NOTE: echo is dash builtin known for weird behavior
+RUN /bin/echo -e 'NAME="Busy Linux"\n'\
+'PRETTY_NAME="Busy Linux"\n'\
+'ID=busy\n'\
+'HOME_URL="https://github.com/v3l0c1r4pt0r/busy-linux"\n'\
+'BUG_REPORT_URL="https://github.com/v3l0c1r4pt0r/busy-linux/issues"' > os-release
