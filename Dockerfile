@@ -127,6 +127,29 @@ RUN mkdir -p /etc/init.d && echo -e "#!/bin/sh\nmount -a" > /etc/init.d/rcS
 # link /init, so kernel will call the right binary
 RUN ln -s /bin/busybox /init
 
+################################
+#                              #
+#  EFI STUB COMPILATION STAGE  #
+#                              #
+################################
+FROM dev AS efistub
+
+RUN apt-get install -y \
+  # for configure stage \
+  meson \
+  # dependencies for building \
+  gperf libcap-dev pkg-config libmount-dev \
+  # for building systemd-boot? \
+  gnu-efi
+
+RUN wget 'https://github.com/systemd/systemd/archive/refs/tags/v248.tar.gz' && tar -xvf v248.tar.gz && rm v248.tar.gz
+
+WORKDIR /root/systemd-248
+
+RUN ./configure -Dgnu-efi=true
+
+RUN make
+
 ########################
 #                      #
 #  SYSTEMD BOOT STAGE  #
