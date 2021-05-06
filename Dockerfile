@@ -150,6 +150,8 @@ RUN ./configure -Dgnu-efi=true
 
 RUN make
 
+RUN cp build/src/boot/efi/linuxx64.efi.stub /root/
+
 ########################
 #                      #
 #  SYSTEMD BOOT STAGE  #
@@ -185,3 +187,6 @@ RUN /bin/echo -e 'NAME="Busy Linux"\n'\
 
 # create kernel command line file
 RUN /bin/echo '' > kernel-command-line.txt
+
+# get systemd-boot from previous stage
+COPY --from=efistub /root/linuxx64.efi.stub /root/
