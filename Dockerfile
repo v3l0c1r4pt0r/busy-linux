@@ -159,3 +159,6 @@ RUN /bin/echo -e 'NAME="Busy Linux"\n'\
 'ID=busy\n'\
 'HOME_URL="https://github.com/v3l0c1r4pt0r/busy-linux"\n'\
 'BUG_REPORT_URL="https://github.com/v3l0c1r4pt0r/busy-linux/issues"' > os-release
+
+# create kernel command line file
+RUN /bin/echo '' > kernel-command-line.txt
