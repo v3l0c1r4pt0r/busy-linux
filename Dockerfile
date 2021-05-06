@@ -136,6 +136,9 @@ FROM dev AS systemd-boot
 
 RUN apt-get install -y cpio
 
+# copy kernel from its stage
+COPY --from=kernel /root/bzImage /root/
+
 # copy whole initramfs
 COPY --from=initramfs / /root/initramfs
 
