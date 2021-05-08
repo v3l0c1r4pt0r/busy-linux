@@ -110,7 +110,7 @@ COPY --from=busybox /root/busybox /bin/busybox
 RUN ["/bin/busybox", "--install", "-s", "/bin"]
 
 # create basic directory structure
-RUN mkdir -p bin realdev etc lib proc root sys
+RUN mkdir -p bin realdev etc lib realproc root sys
 
 # create device file for teletypes
 RUN mknod /realdev/tty1 c 4 1
@@ -169,8 +169,9 @@ COPY --from=initramfs / /root/initramfs
 
 WORKDIR /root/initramfs
 
-# fix dev name, as docker should not interrupt us in subdir
+# fix dev and proc name, as docker should not interrupt us in subdir
 RUN mv realdev dev
+RUN mv realproc proc
 
 # create compressed initramfs
 RUN find . | cpio -o -H newc > ../initramfs.cpio
