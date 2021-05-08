@@ -12,10 +12,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag busy-linux:$(date +%s)
-    - name: Copy EFI binary
+    - name: Build EFI binary
       run: |
+        docker build . --file Dockerfile --tag busy-linux:$(date +%s)
         docker run --detach --name busy-dev -it busy-linux
         docker cp busy-dev:/root/busy-linux.efi ./
         docker stop busy-dev
