@@ -20,3 +20,8 @@ jobs:
         docker cp busy-dev:/root/busy-linux.efi ./
         docker stop busy-dev
         ls -l .
+    - name: Upload OS as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: busy-linux.efi
+        path: busy-linux.efi
