@@ -19,3 +19,4 @@ jobs:
         docker run --detach --name busy-dev -it busy-linux:$(date +%s)
         docker cp busy-dev:/root/busy-linux.efi ./
         docker stop busy-dev
+        ls -l .
