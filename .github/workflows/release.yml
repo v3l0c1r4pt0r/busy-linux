@@ -54,6 +54,9 @@ jobs:
           draft: true
           prerelease: false
 
+      - name: Diagnostic data
+        run: ls -laR .
+
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
