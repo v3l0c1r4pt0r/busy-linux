@@ -26,6 +26,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           checkName: build
           ref: ${{ github.sha }}
+          timeoutSeconds: 3600 # wait one hour (should take half an hour to complete)
+          intervalSeconds: 60 # check every minute
 
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v2
